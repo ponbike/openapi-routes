@@ -56,11 +56,12 @@ class ApiRoutes {
      * @return {array}
      */
   get operationIds () {
-    return Object.values(this.specification.paths).map((path) => {
-      return Object.entries(path).map(([operation, data]) =>
-        this.operations.includes(operation) ? data.operationId : null
-      )
-    }).flat()
+    return Object.values(this.specification.paths)
+      .map((path) => Object.entries(path)
+        .map(([operation, data]) => this.operations.includes(operation)
+          ? data.operationId
+          : null))
+      .flat()
   }
 
   /**
@@ -97,12 +98,11 @@ class ApiRoutes {
   authentication (secret) {
     this.api.register(
       'unauthorizedHandler',
-      async (context, request, response) =>
-        response.status(401).json({
-          status: 401,
-          timestamp: new Date(),
-          message: 'Unauthorized'
-        })
+      async (context, request, response) => response.status(401).json({
+        status: 401,
+        timestamp: new Date(),
+        message: 'Unauthorized'
+      })
     )
     this.api.registerSecurityHandler(
       'apiKey',
@@ -113,12 +113,11 @@ class ApiRoutes {
   requestValidation () {
     this.api.register(
       'validationFail',
-      (context, request, response) =>
-        response.status(400).json({
-          status: 400,
-          timestamp: new Date(),
-          message: context.validation.errors
-        })
+      (context, request, response) => response.status(400).json({
+        status: 400,
+        timestamp: new Date(),
+        message: context.validation.errors
+      })
     )
   }
 

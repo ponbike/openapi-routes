@@ -1,17 +1,9 @@
 {
   "name": "@ponbike/openapi-routes",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "OpenAPI routes",
   "files": [
-    "src/api.js",
-    "dist/api.js",
-    "dist/api.js.map",
-    "dist/api.module.js",
-    "dist/api.module.js.map",
-    "dist/api.modern.js",
-    "dist/api.modern.js.map",
-    "dist/api.umd.js",
-    "dist/api.umd.js.map"
+    "src/api.js"
   ],
   "source": "src/api.js",
   "main": "dist/api.js",
@@ -47,38 +39,39 @@
   "license": "MIT",
   "homepage": "https://github.com/ponbike/openapi-routes#readme",
   "scripts": {
-    "build": "microbundle --target node",
-    "dev": "microbundle --target node watch",
-    "lint": "standard src",
-    "lint:fix": "standard src --fix",
+    "lint": "ponstandard src",
+    "lint:fix": "ponstandard src --fix",
     "test": "jest",
     "test:watch": "jest src --watch",
-    "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "cpd": "node_modules/jscpd/bin/jscpd src",
+    "vulnerabilities": "npm audit --only=prod"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.6.3",
-    "codecov": "^3.8.1",
-    "coveralls": "^3.1.0",
-    "eslint": "^7.22.0",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/preset-env": "^7.16.0",
+    "@jest/globals": "^27.3.1",
+    "@ponbike/ponstandard": "^0.2.2",
+    "babel-jest": "^27.3.1",
+    "codecov": "^3.8.3",
+    "coveralls": "^3.1.1",
+    "eslint": "^7.32.0",
     "esm": "^3.2.25",
-    "jest": "^26.6.3",
-    "microbundle": "^0.13.0",
-    "prettier": "^2.2.1",
-    "standard": "^16.0.3"
+    "jest": "^27.3.1",
+    "jest-junit": "^13.0.0",
+    "jest-sonar-reporter": "^2.0.0",
+    "jscpd": "^3.4.2",
+    "prettier": "^2.4.1",
+    "standard": "^16.0.4"
   },
   "type": "module",
   "engines": {
     "node": ">= 14"
   },
-  "standard": {
-    "parser": "babel-eslint",
+  "ponstandard": {
+    "parser": "@babel/eslint-parser",
     "globals": [
-      "describe",
-      "it",
-      "expect",
       "btoa"
     ],
     "ignore": [
