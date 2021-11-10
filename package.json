@@ -6,17 +6,9 @@
     "src/api.js"
   ],
   "source": "src/api.js",
-  "main": "dist/api.js",
-  "module": "dist/api.module.js",
-  "esmodule": "dist/api.modern.js",
-  "unpkg": "dist/api.umd.js",
-  "umd:main": "dist/api.umd.js",
-  "exports": {
-    ".": {
-      "require": "./dist/api.js",
-      "default": "./dist/api.module.js"
-    }
-  },
+  "main": "src/api.js",
+  "module": "src/api.js",
+  "esmodule": "src/api.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ponbike/openapi-routes.git"
