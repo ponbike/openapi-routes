@@ -51,7 +51,6 @@ class ApiRoutes {
 
   /**
      * Get all operation ID's from the specification.
-     * @todo: allow multipleoperation methods per path (e.g. get and post)
      *
      * @return {array}
      */
