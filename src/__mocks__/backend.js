@@ -20,5 +20,7 @@ export default class Backend {
     })
   }
 
-  init () {}
+  init () {
+    return true
+  }
 }

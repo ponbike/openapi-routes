@@ -1,8 +1,9 @@
+import { expect, describe, it } from '@jest/globals'
 import { ApiRoutes } from '../api'
 import OpenAPISpecification from '../__fixtures__/api-doc.json'
-import Backend from '../__mocks__/backend'
-import callback from '../__mocks__/callback'
-import controllers from '../__mocks__/controller'
+import Backend from '../__mocks__/backend.js'
+import callback from '../__mocks__/callback.js'
+import controllers from '../__mocks__/controller.js'
 
 describe('API route without security', () => {
   const { api: actual } = ApiRoutes.create({
@@ -38,9 +39,9 @@ describe('API route with security', () => {
     controllers,
     callback,
     root: '/test',
-    logger: () => 42
+    logger: () => 43
   })
-  it('Test if the return value is a instance of the backend', () => {
+  it('Test if the return value is a instance of the backend with security', () => {
     expect(actual instanceof Backend).toBeTruthy()
   })
 
@@ -68,7 +69,7 @@ describe('API route with security', () => {
   })
 
   it('Test if the logger is set', () => {
-    expect(logger()).toBe(42)
+    expect(logger()).toBe(43)
   })
 
   it('It should throw an error if there are no controllers set', () => {
@@ -80,7 +81,7 @@ describe('API route with security', () => {
         controllers: null,
         callback,
         root: '/test',
-        logger: () => 42
+        logger: () => 44
       })
     }).toThrowError('No valid controllers found')
   })
