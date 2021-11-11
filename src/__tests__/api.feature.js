@@ -151,6 +151,70 @@ describe('API route without security', () => {
     expect(response).toEqual(42)
     expect(status).toEqual(200)
   })
+
+  it('Test the post response handler with reponse errors', async () => {
+    const statusController = actual.route('postResponseHandler')
+    const context = {
+      api: {
+        validateResponse: () => ({ errors: 142 }),
+        validateResponseHeaders: () => ({})
+      },
+      operation: 123,
+      response: 42
+    }
+    const req = {}
+    let response = null
+    let status = null
+    const res = {
+      type: () => true,
+      status: (newStatus) => ({
+        json: (data) => {
+          status = newStatus
+          response = data
+        },
+        send: (data) => {
+          status = newStatus
+          response = data
+        }
+      })
+    }
+    await statusController(context, req, res)
+    expect(response.message).toEqual(142)
+    expect(response.status).toEqual(502)
+    expect(status).toEqual(502)
+  })
+
+  it('Test the post response handler with request errors', async () => {
+    const statusController = actual.route('postResponseHandler')
+    const context = {
+      api: {
+        validateResponse: () => ({}),
+        validateResponseHeaders: () => ({ errors: 242 })
+      },
+      operation: 123,
+      response: 42
+    }
+    const req = {}
+    let response = null
+    let status = null
+    const res = {
+      type: () => true,
+      status: (newStatus) => ({
+        json: (data) => {
+          status = newStatus
+          response = data
+        },
+        send: (data) => {
+          status = newStatus
+          response = data
+        }
+      })
+    }
+    await statusController(context, req, res)
+    expect(response.message).toEqual(242)
+    expect(response.status).toEqual(502)
+    expect(status).toEqual(502)
+  })
 })
 
 describe('API route with security', () => {
