@@ -5,6 +5,22 @@ import Backend from '../__mocks__/backend.js'
 import callback from '../__mocks__/callback.js'
 import controllers from '../__mocks__/controller.js'
 
+const resMock = {
+  newStatus: null,
+  response: null,
+  type: () => true,
+  status: (newStatus) => ({
+    json: (data) => {
+      resMock.newStatus = newStatus
+      resMock.response = data
+    },
+    send: (data) => {
+      resMock.newStatus = newStatus
+      resMock.response = data
+    }
+  })
+}
+
 describe('API route without security', () => {
   const { api: actual, operationIds } = ApiRoutes.create({
     specification: OpenAPISpecification,
@@ -47,53 +63,29 @@ describe('API route without security', () => {
     const notFoundController = actual.route('notFound')
     const context = {}
     const req = {}
-    let response = null
-    const res = {
-      type: () => true,
-      status: () => ({
-        send: (data) => {
-          response = data
-        }
-      })
-    }
-    await notFoundController(context, req, res)
-    expect(response).toEqual(true)
+
+    await notFoundController(context, req, resMock)
+    expect(resMock.response).toEqual(true)
   })
 
   it('Test the status handler', async () => {
     const statusController = actual.route('getStatus')
     const context = {}
     const req = {}
-    let response = null
-    const res = {
-      type: () => true,
-      status: () => ({
-        send: (data) => {
-          response = data
-        }
-      })
-    }
-    await statusController(context, req, res)
-    expect(response.message).toEqual('controller is not a function')
-    expect(response.status).toEqual(500)
+
+    await statusController(context, req, resMock)
+    expect(resMock.response.message).toEqual('controller is not a function')
+    expect(resMock.response.status).toEqual(500)
   })
 
   it('Test the test handler', async () => {
     const testController = actual.route('getTest')
     const context = {}
     const req = {}
-    let response = null
-    const res = {
-      type: () => true,
-      status: () => ({
-        send: (data) => {
-          response = data
-        }
-      })
-    }
-    await testController(context, req, res)
-    expect(response.message).toEqual('controller is not a function')
-    expect(response.status).toEqual(500)
+
+    await testController(context, req, resMock)
+    expect(resMock.response.message).toEqual('controller is not a function')
+    expect(resMock.response.status).toEqual(500)
   })
 
   it('Test the validation fail handler', async () => {
@@ -104,21 +96,10 @@ describe('API route without security', () => {
       }
     }
     const req = {}
-    let response = null
-    const res = {
-      type: () => true,
-      status: () => ({
-        json: (data) => {
-          response = data
-        },
-        send: (data) => {
-          response = data
-        }
-      })
-    }
-    await statusController(context, req, res)
-    expect(response.message).toEqual(42)
-    expect(response.status).toEqual(400)
+
+    await statusController(context, req, resMock)
+    expect(resMock.response.message).toEqual(42)
+    expect(resMock.response.status).toEqual(400)
   })
 
   it('Test the post response handler', async () => {
@@ -132,24 +113,10 @@ describe('API route without security', () => {
       response: 42
     }
     const req = {}
-    let response = null
-    let status = null
-    const res = {
-      type: () => true,
-      status: (newStatus) => ({
-        json: (data) => {
-          status = newStatus
-          response = data
-        },
-        send: (data) => {
-          status = newStatus
-          response = data
-        }
-      })
-    }
-    await statusController(context, req, res)
-    expect(response).toEqual(42)
-    expect(status).toEqual(200)
+
+    await statusController(context, req, resMock)
+    expect(resMock.response).toEqual(42)
+    expect(resMock.newStatus).toEqual(200)
   })
 
   it('Test the post response handler with reponse errors', async () => {
@@ -163,25 +130,11 @@ describe('API route without security', () => {
       response: 42
     }
     const req = {}
-    let response = null
-    let status = null
-    const res = {
-      type: () => true,
-      status: (newStatus) => ({
-        json: (data) => {
-          status = newStatus
-          response = data
-        },
-        send: (data) => {
-          status = newStatus
-          response = data
-        }
-      })
-    }
-    await statusController(context, req, res)
-    expect(response.message).toEqual(142)
-    expect(response.status).toEqual(502)
-    expect(status).toEqual(502)
+
+    await statusController(context, req, resMock)
+    expect(resMock.response.message).toEqual(142)
+    expect(resMock.response.status).toEqual(502)
+    expect(resMock.newStatus).toEqual(502)
   })
 
   it('Test the post response handler with request errors', async () => {
@@ -195,25 +148,11 @@ describe('API route without security', () => {
       response: 42
     }
     const req = {}
-    let response = null
-    let status = null
-    const res = {
-      type: () => true,
-      status: (newStatus) => ({
-        json: (data) => {
-          status = newStatus
-          response = data
-        },
-        send: (data) => {
-          status = newStatus
-          response = data
-        }
-      })
-    }
-    await statusController(context, req, res)
-    expect(response.message).toEqual(242)
-    expect(response.status).toEqual(502)
-    expect(status).toEqual(502)
+
+    await statusController(context, req, resMock)
+    expect(resMock.response.message).toEqual(242)
+    expect(resMock.response.status).toEqual(502)
+    expect(resMock.newStatus).toEqual(502)
   })
 })
 
@@ -276,25 +215,11 @@ describe('API route with security', () => {
     const statusController = actual.route('unauthorizedHandler')
     const context = {}
     const req = {}
-    let response = null
-    let status = null
-    const res = {
-      type: () => true,
-      status: (newStatus) => ({
-        json: (data) => {
-          status = newStatus
-          response = data
-        },
-        send: (data) => {
-          status = newStatus
-          response = data
-        }
-      })
-    }
-    await statusController(context, req, res)
-    expect(response.message).toEqual('Unauthorized')
-    expect(response.status).toEqual(401)
-    expect(status).toEqual(401)
+
+    await statusController(context, req, resMock)
+    expect(resMock.response.message).toEqual('Unauthorized')
+    expect(resMock.response.status).toEqual(401)
+    expect(resMock.newStatus).toEqual(401)
   })
 
   it('Test the api key check', () => {
@@ -308,5 +233,32 @@ describe('API route with security', () => {
     }
     const result = securityHandler(context)
     expect(result).toBeTruthy()
+  })
+})
+
+describe('API without not found controller', () => {
+  const controllersWithoutNotFound = {
+    test () {
+      return true
+    }
+  }
+  const { api: actual } = ApiRoutes.create({
+    specification: OpenAPISpecification,
+    Backend,
+    controllers: controllersWithoutNotFound,
+    callback,
+    requestValidation: true,
+    responseValidation: true
+  })
+
+  it('Test if the API route add all routes', () => {
+    expect(actual.routes.map((route) => route.operationId)).toEqual([
+      'validationFail',
+      'postResponseHandler',
+      'getStatus',
+      'getTest',
+      'postTest2',
+      'postTest'
+    ])
   })
 })
