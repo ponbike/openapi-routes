@@ -271,4 +271,29 @@ describe('API route with security', () => {
       })
     }).toThrowError('No valid controllers found')
   })
+
+  it('Test the unauthorized handler', async () => {
+    const statusController = actual.route('unauthorizedHandler')
+    const context = {}
+    const req = {}
+    let response = null
+    let status = null
+    const res = {
+      type: () => true,
+      status: (newStatus) => ({
+        json: (data) => {
+          status = newStatus
+          response = data
+        },
+        send: (data) => {
+          status = newStatus
+          response = data
+        }
+      })
+    }
+    await statusController(context, req, res)
+    expect(response.message).toEqual('Unauthorized')
+    expect(response.status).toEqual(401)
+    expect(status).toEqual(401)
+  })
 })
