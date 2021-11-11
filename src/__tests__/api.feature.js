@@ -6,18 +6,31 @@ import callback from '../__mocks__/callback.js'
 import controllers from '../__mocks__/controller.js'
 
 describe('API route without security', () => {
-  const { api: actual } = ApiRoutes.create({
+  const { api: actual, operationIds } = ApiRoutes.create({
     specification: OpenAPISpecification,
     Backend,
     controllers,
-    callback
+    callback,
+    requestValidation: true,
+    responseValidation: true
   })
   it('Test if the return value is a instance of the backend', () => {
     expect(actual instanceof Backend).toBeTruthy()
   })
 
+  it('Test if the operation id\'s are generated', () => {
+    expect(operationIds).toEqual([
+      'getStatus',
+      'getTest',
+      'postTest2',
+      'postTest'
+    ])
+  })
+
   it('Test if the API route add all routes', () => {
     expect(actual.routes.map((route) => route.operationId)).toEqual([
+      'validationFail',
+      'postResponseHandler',
       'getStatus',
       'getTest',
       'postTest2',
