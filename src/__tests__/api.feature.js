@@ -296,4 +296,17 @@ describe('API route with security', () => {
     expect(response.status).toEqual(401)
     expect(status).toEqual(401)
   })
+
+  it('Test the api key check', () => {
+    const securityHandler = actual.securityHandler('apiKey')
+    const context = {
+      request: {
+        headers: {
+          'x-api-key': 'secret'
+        }
+      }
+    }
+    const result = securityHandler(context)
+    expect(result).toBeTruthy()
+  })
 })

@@ -24,6 +24,10 @@ export default class Backend {
     })
   }
 
+  securityHandler (name) {
+    return this.security.find(item => item.name === name).handler
+  }
+
   init () {
     return true
   }
