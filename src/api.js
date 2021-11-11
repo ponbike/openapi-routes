@@ -179,7 +179,7 @@ class ApiRoutes {
     meta,
     requestValidation = false,
     responseValidation = false
-  } = {}) {
+  }) {
     const apiRoutes = new ApiRoutes(specification, Backend, callback, root, meta)
 
     apiRoutes.setControllers(controllers)
