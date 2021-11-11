@@ -42,6 +42,115 @@ describe('API route without security', () => {
   it('Test if the API security is empty', () => {
     expect(actual.security.map((route) => route.name)).toEqual([])
   })
+
+  it('Test the not found handler', async () => {
+    const notFoundController = actual.route('notFound')
+    const context = {}
+    const req = {}
+    let response = null
+    const res = {
+      type: () => true,
+      status: () => ({
+        send: (data) => {
+          response = data
+        }
+      })
+    }
+    await notFoundController(context, req, res)
+    expect(response).toEqual(true)
+  })
+
+  it('Test the status handler', async () => {
+    const statusController = actual.route('getStatus')
+    const context = {}
+    const req = {}
+    let response = null
+    const res = {
+      type: () => true,
+      status: () => ({
+        send: (data) => {
+          response = data
+        }
+      })
+    }
+    await statusController(context, req, res)
+    expect(response.message).toEqual('controller is not a function')
+    expect(response.status).toEqual(500)
+  })
+
+  it('Test the test handler', async () => {
+    const testController = actual.route('getTest')
+    const context = {}
+    const req = {}
+    let response = null
+    const res = {
+      type: () => true,
+      status: () => ({
+        send: (data) => {
+          response = data
+        }
+      })
+    }
+    await testController(context, req, res)
+    expect(response.message).toEqual('controller is not a function')
+    expect(response.status).toEqual(500)
+  })
+
+  it('Test the validation fail handler', async () => {
+    const statusController = actual.route('validationFail')
+    const context = {
+      validation: {
+        errors: 42
+      }
+    }
+    const req = {}
+    let response = null
+    const res = {
+      type: () => true,
+      status: () => ({
+        json: (data) => {
+          response = data
+        },
+        send: (data) => {
+          response = data
+        }
+      })
+    }
+    await statusController(context, req, res)
+    expect(response.message).toEqual(42)
+    expect(response.status).toEqual(400)
+  })
+
+  it('Test the post response handler', async () => {
+    const statusController = actual.route('postResponseHandler')
+    const context = {
+      api: {
+        validateResponse: () => ({}),
+        validateResponseHeaders: () => ({})
+      },
+      operation: 123,
+      response: 42
+    }
+    const req = {}
+    let response = null
+    let status = null
+    const res = {
+      type: () => true,
+      status: (newStatus) => ({
+        json: (data) => {
+          status = newStatus
+          response = data
+        },
+        send: (data) => {
+          status = newStatus
+          response = data
+        }
+      })
+    }
+    await statusController(context, req, res)
+    expect(response).toEqual(42)
+    expect(status).toEqual(200)
+  })
 })
 
 describe('API route with security', () => {

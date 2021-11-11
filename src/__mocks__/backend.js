@@ -13,6 +13,10 @@ export default class Backend {
     })
   }
 
+  route (operationId) {
+    return this.routes.find(route => route.operationId === operationId).handler
+  }
+
   registerSecurityHandler (name, handler) {
     this.security.push({
       name,
