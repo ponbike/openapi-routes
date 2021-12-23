@@ -1,3 +1,4 @@
+import addFormats from 'ajv-formats'
 /**
  * Auto register API routes from the OpenAPI specification.
  */
@@ -19,7 +20,11 @@ class ApiRoutes {
     this.meta = meta || {}
     this.api = new Backend({
       apiRoot: root || '/',
-      definition: OpenAPISpecification
+      definition: OpenAPISpecification,
+      customizeAjv: (originalAjv, ajvOpts, validationContext) => {
+        addFormats(originalAjv)
+        return originalAjv
+      }
     })
   }
 
