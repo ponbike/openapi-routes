@@ -3,7 +3,7 @@ export default class Backend {
     this.apiRoot = apiRoot
     this.definition = definition
     this.routes = []
-    this.security = [],
+    this.security = []
     this.customizeAjv = customizeAjv
   }
 

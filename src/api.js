@@ -21,11 +21,10 @@ class ApiRoutes {
     this.api = new Backend({
       apiRoot: root || '/',
       definition: OpenAPISpecification,
-      customizeAjv:(originalAjv, ajvOpts, validationContext) =>
-        {
-          addFormats(originalAjv)
-          return originalAjv
-        }
+      customizeAjv: (originalAjv, ajvOpts, validationContext) => {
+        addFormats(originalAjv)
+        return originalAjv
+      }
     })
   }
 
