@@ -1,9 +1,10 @@
 export default class Backend {
-  constructor ({ apiRoot, definition }) {
+  constructor ({ apiRoot, definition, customizeAjv }) {
     this.apiRoot = apiRoot
     this.definition = definition
     this.routes = []
-    this.security = []
+    this.security = [],
+    this.customizeAjv = customizeAjv
   }
 
   register (operationId, handler) {
