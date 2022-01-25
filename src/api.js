@@ -28,24 +28,29 @@ class ApiRoutes {
     })
   }
 
+  /**
+   * Get akl operations
+   *
+   * @return {array}
+   */
   get operations () {
     return ['get', 'put', 'patch', 'post', 'delete']
   }
 
   /**
-     * Set the logger.
-     *
-     * @param {class} logger
-     */
+   * Set the logger.
+   *
+   * @param {class} logger
+   */
   setLogger (logger) {
     this.logger = logger
   }
 
   /**
-     * Set the controllers.
-     *
-     * @param {object} controllers
-     */
+   * Set the controllers.
+   *
+   * @param {object} controllers
+   */
   setControllers (controllers) {
     if (controllers === null || controllers.constructor.name !== 'Object') {
       throw new Error('No valid controllers found')
@@ -55,10 +60,10 @@ class ApiRoutes {
   }
 
   /**
-     * Get all operation ID's from the specification.
-     *
-     * @return {array}
-     */
+   * Get all operation ID's from the specification.
+   *
+   * @return {string[]}
+   */
   get operationIds () {
     return Object.values(this.specification.paths)
       .map((path) => Object.entries(path)
@@ -69,8 +74,8 @@ class ApiRoutes {
   }
 
   /**
-     * Register all operations to a controller.
-     */
+   * Register all operations to a controller.
+   */
   register () {
     this.operationIds.forEach((operationId) => {
       this.api.register(
@@ -99,6 +104,11 @@ class ApiRoutes {
     this.api.init()
   }
 
+  /**
+   * Set the authentication
+   *
+   * @param {string} secret
+   */
   authentication (secret) {
     this.api.register(
       'unauthorizedHandler',
@@ -114,6 +124,9 @@ class ApiRoutes {
     )
   }
 
+  /**
+   * Add the request validation to the API routes.
+   */
   requestValidation () {
     this.api.register(
       'validationFail',
@@ -125,6 +138,9 @@ class ApiRoutes {
     )
   }
 
+  /**
+   * Add the response validation to the API routes.
+   */
   responseValidation () {
     this.api.register(
       'postResponseHandler',
@@ -158,21 +174,22 @@ class ApiRoutes {
   }
 
   /**
-     * Create the API routes from a specification.
-     *
-     * @param {object} specification
-     * @param {string} secret
-     * @param {class} Backend
-     * @param {class} logger
-     * @param {function} callback
-     * @param {object} controllers
-     * @param {string} root
-     * @param {mixed} meta
-     * @param {boolean} requestValidation
-     * @param {boolean} responseValidation
-     *
-     * @return {ApiRoutes}
-     */
+   * Create the API routes from a specification.
+   *
+   * @param {object} data
+   * @param {object} data.specification
+   * @param {string} data.secret
+   * @param {class} data.Backend
+   * @param {class} data.logger
+   * @param {function} data.callback
+   * @param {object} data.controllers
+   * @param {string} data.root
+   * @param {mixed} data.meta
+   * @param {boolean} data.requestValidation
+   * @param {boolean} data.responseValidation
+   *
+   * @return {ApiRoutes}
+   */
   static create ({
     specification,
     secret,
