@@ -14,6 +14,7 @@ class ApiRoutes {
    */
   constructor (OpenAPISpecification, Backend, callback, root, meta) {
     this.logger = null
+    this.logging = null
     this.specification = OpenAPISpecification
     this.callback = callback
     this.controllers = {}
@@ -44,6 +45,15 @@ class ApiRoutes {
    */
   setLogger (logger) {
     this.logger = logger
+  }
+
+  /**
+   * Set the logging details.
+   *
+   * @param {class} logging
+   */
+  setLogging (logging) {
+    this.logging = logging
   }
 
   /**
@@ -84,6 +94,7 @@ class ApiRoutes {
           controller: this.controllers[operationId],
           specification: this.specification,
           logger: this.logger,
+          logging: this.logging,
           meta: this.meta
         })
       )
@@ -96,6 +107,7 @@ class ApiRoutes {
           controller: this.controllers.notFound,
           specification: this.specification,
           logger: this.logger,
+          logging: this.logging,
           meta: this.meta
         })
       )
@@ -181,6 +193,7 @@ class ApiRoutes {
    * @param {string} data.secret
    * @param {class} data.Backend
    * @param {class} data.logger
+   * @param {class} data.logging
    * @param {function} data.callback
    * @param {object} data.controllers
    * @param {string} data.root
@@ -195,6 +208,7 @@ class ApiRoutes {
     secret,
     Backend,
     logger,
+    logging,
     callback,
     controllers,
     root,
@@ -207,6 +221,10 @@ class ApiRoutes {
     apiRoutes.setControllers(controllers)
     if (logger) {
       apiRoutes.setLogger(logger)
+    }
+
+    if (logging) {
+      apiRoutes.setLogging(logging)
     }
 
     if (secret) {
