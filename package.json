@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-routes",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "OpenAPI routes",
   "files": [
     "src/api.js"
@@ -71,6 +71,7 @@
     ]
   },
   "dependencies": {
+    "@hckrnews/objects": "^3.6.0",
     "ajv-formats": "^2.1.1"
   }
 }
