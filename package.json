@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-routes",
-  "version": "3.1.7",
+  "version": "3.2.0",
   "description": "OpenAPI routes",
   "files": [
     "src/api.js"
@@ -44,7 +44,7 @@
     "@babel/eslint-parser": "^7.16.3",
     "@babel/preset-env": "^7.16.0",
     "@jest/globals": "^27.3.1",
-    "@ponbike/ponstandard": "^0.2.2",
+    "@pondevelopment/ponstandard": "^1.0.0",
     "babel-jest": "^27.3.1",
     "codecov": "^3.8.3",
     "coveralls": "^3.1.1",

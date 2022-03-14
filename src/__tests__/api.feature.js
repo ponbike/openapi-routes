@@ -164,7 +164,11 @@ describe('API route with security', () => {
     controllers,
     callback,
     root: '/test',
-    logger: () => 43
+    logger: () => 43,
+    logging: {
+      dsn: 'https://12345678@234567151173.ingest.sentry.io/1234567',
+      release: '1.2.3'
+    }
   })
   it('Test if the return value is a instance of the backend with security', () => {
     expect(actual instanceof Backend).toBeTruthy()
