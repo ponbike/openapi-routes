@@ -1,4 +1,25 @@
 import addFormats from 'ajv-formats'
+import Obj from '@hckrnews/objects'
+
+/**
+ * The logging object
+ * @typedef {Object} Logging
+ * @property {String} type
+ * @property {String} release
+ * @property {String} environment
+ * @property {Number} tracesSampleRate
+ * @property {Boolean} debug
+ */
+
+const loggingSchema = {
+  dsn: String,
+  release: String,
+  'environment?': String,
+  'tracesSampleRate?': Number,
+  'debug?': Boolean
+}
+const Logging = Obj({ schema: loggingSchema })
+
 /**
  * Auto register API routes from the OpenAPI specification.
  */
@@ -53,7 +74,7 @@ class ApiRoutes {
    * @param {class} logging
    */
   setLogging (logging) {
-    this.logging = logging
+    this.logging = logging ? Logging.create(logging) : null
   }
 
   /**
@@ -193,7 +214,7 @@ class ApiRoutes {
    * @param {string} data.secret
    * @param {class} data.Backend
    * @param {class} data.logger
-   * @param {class} data.logging
+   * @param {Logging} data.logging
    * @param {function} data.callback
    * @param {object} data.controllers
    * @param {string} data.root
