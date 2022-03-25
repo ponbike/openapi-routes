@@ -1,24 +1,4 @@
 import addFormats from 'ajv-formats'
-import Obj from '@hckrnews/objects'
-
-/**
- * The logging object
- * @typedef {Object} Logging
- * @property {String} type
- * @property {String} release
- * @property {String} environment
- * @property {Number} tracesSampleRate
- * @property {Boolean} debug
- */
-
-const loggingSchema = {
-  dsn: String,
-  release: String,
-  'environment?': String,
-  'tracesSampleRate?': Number,
-  'debug?': Boolean
-}
-const Logging = Obj({ schema: loggingSchema })
 
 /**
  * Auto register API routes from the OpenAPI specification.
@@ -35,7 +15,7 @@ class ApiRoutes {
    */
   constructor (OpenAPISpecification, Backend, callback, root, meta) {
     this.logger = null
-    this.logging = null
+    this.errorLogger = null
     this.specification = OpenAPISpecification
     this.callback = callback
     this.controllers = {}
@@ -69,12 +49,12 @@ class ApiRoutes {
   }
 
   /**
-   * Set the logging details.
+   * Set the error logger.
    *
-   * @param {class} logging
+   * @param {class} logger
    */
-  setLogging (logging) {
-    this.logging = logging ? Logging.create(logging) : null
+  setErrorLogger (logger) {
+    this.errorLogger = logger
   }
 
   /**
@@ -115,7 +95,7 @@ class ApiRoutes {
           controller: this.controllers[operationId],
           specification: this.specification,
           logger: this.logger,
-          logging: this.logging,
+          errorLogger: this.errorLogger,
           meta: this.meta
         })
       )
@@ -128,7 +108,7 @@ class ApiRoutes {
           controller: this.controllers.notFound,
           specification: this.specification,
           logger: this.logger,
-          logging: this.logging,
+          errorLogger: this.errorLogger,
           meta: this.meta
         })
       )
@@ -214,7 +194,7 @@ class ApiRoutes {
    * @param {string} data.secret
    * @param {class} data.Backend
    * @param {class} data.logger
-   * @param {Logging} data.logging
+   * @param {class} data.errorLogger
    * @param {function} data.callback
    * @param {object} data.controllers
    * @param {string} data.root
@@ -229,7 +209,7 @@ class ApiRoutes {
     secret,
     Backend,
     logger,
-    logging,
+    errorLogger,
     callback,
     controllers,
     root,
@@ -244,8 +224,8 @@ class ApiRoutes {
       apiRoutes.setLogger(logger)
     }
 
-    if (logging) {
-      apiRoutes.setLogging(logging)
+    if (errorLogger) {
+      apiRoutes.setErrorLogger(errorLogger)
     }
 
     if (secret) {
