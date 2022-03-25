@@ -18,6 +18,9 @@ const { api: apiRoutes } = ApiRoutes.create({
   secret: 'exampleSecret,
   Backend: OpenAPIBackend,
   logger,
+  errorLogger: {
+    error: (err) => logger.error(err)
+  }
   controllers,
   callback: makeExpressCallback,
   root: '/',
