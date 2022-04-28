@@ -23,7 +23,7 @@ class ApiRoutes {
     this.api = new Backend({
       apiRoot: root || '/',
       definition: OpenAPISpecification,
-      customizeAjv: (originalAjv, ajvOpts, validationContext) => {
+      customizeAjv: (originalAjv) => {
         addFormats(originalAjv)
         return originalAjv
       }
@@ -125,7 +125,7 @@ class ApiRoutes {
   authentication (secret) {
     this.api.register(
       'unauthorizedHandler',
-      async (context, request, response) => response.status(401).json({
+      async (_context, _request, response) => response.status(401).json({
         status: 401,
         timestamp: new Date(),
         message: 'Unauthorized'
@@ -143,7 +143,7 @@ class ApiRoutes {
   requestValidation () {
     this.api.register(
       'validationFail',
-      (context, request, response) => response.status(400).json({
+      (context, _request, response) => response.status(400).json({
         status: 400,
         timestamp: new Date(),
         message: context.validation.errors
@@ -157,7 +157,7 @@ class ApiRoutes {
   responseValidation () {
     this.api.register(
       'postResponseHandler',
-      (context, request, response) => {
+      (context, _request, response) => {
         const validResponse = context.api.validateResponse(context.response, context.operation)
 
         if (validResponse.errors) {
@@ -181,7 +181,7 @@ class ApiRoutes {
           })
         }
 
-        return response.status(200).json(context.response)
+        return response.status(200).send(context.response)
       }
     )
   }
