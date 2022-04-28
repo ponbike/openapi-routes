@@ -181,7 +181,7 @@ class ApiRoutes {
           })
         }
 
-        return response.status(200).json(context.response)
+        return response.status(200).send(context.response)
       }
     )
   }

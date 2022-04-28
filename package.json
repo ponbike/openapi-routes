@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-routes",
-  "version": "3.3.3",
+  "version": "4.0.0",
   "description": "OpenAPI routes",
   "files": [
     "src/api.js"
@@ -43,19 +43,17 @@
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
     "@babel/preset-env": "^7.16.0",
-    "@jest/globals": "^27.3.1",
+    "@jest/globals": "^28.0.2",
     "@pondevelopment/ponstandard": "^1.0.0",
-    "babel-jest": "^27.3.1",
+    "babel-jest": "^28.0.2",
     "codecov": "^3.8.3",
     "coveralls": "^3.1.1",
-    "eslint": "^7.32.0",
     "esm": "^3.2.25",
-    "jest": "^27.3.1",
+    "jest": "^28.0.2",
     "jest-junit": "^13.0.0",
     "jest-sonar-reporter": "^2.0.0",
     "jscpd": "^3.4.2",
-    "prettier": "^2.4.1",
-    "standard": "^16.0.4"
+    "prettier": "^2.4.1"
   },
   "type": "module",
   "engines": {
@@ -71,7 +69,7 @@
     ]
   },
   "dependencies": {
-    "@hckrnews/objects": "^3.6.0",
+    "@hckrnews/objects": "^4.0.3",
     "ajv-formats": "^2.1.1"
   }
 }
