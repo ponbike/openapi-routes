@@ -1,6 +1,6 @@
 import { expect, describe, it } from '@jest/globals'
-import { ApiRoutes } from '../api'
-import OpenAPISpecification from '../__fixtures__/api-doc.json'
+import { ApiRoutes } from '../api.js'
+import OpenAPISpecification from '../__fixtures__/api-doc.json' assert { type: 'json' }
 import Backend from '../__mocks__/backend.js'
 import callback from '../__mocks__/callback.js'
 import controllers from '../__mocks__/controller.js'

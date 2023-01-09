@@ -8,10 +8,10 @@ class ApiRoutes {
    * Set the specification.
    *
    * @param {object} OpenAPISpecification
-   * @param {class} Backend
-   * @param {function} callback
-   * @param {string} root
-   * @param {mixed} meta
+   * @param {object} Backend
+   * @param {Function} callback
+   * @param {string=} root
+   * @param {object=} meta
    */
   constructor (OpenAPISpecification, Backend, callback, root, meta) {
     this.logger = null
@@ -33,7 +33,7 @@ class ApiRoutes {
   /**
    * Get akl operations
    *
-   * @return {array}
+   * @returns {Array}
    */
   get operations () {
     return ['get', 'put', 'patch', 'post', 'delete']
@@ -42,7 +42,7 @@ class ApiRoutes {
   /**
    * Set the logger.
    *
-   * @param {class} logger
+   * @param {object} logger
    */
   setLogger (logger) {
     this.logger = logger
@@ -51,7 +51,7 @@ class ApiRoutes {
   /**
    * Set the error logger.
    *
-   * @param {class} logger
+   * @param {object} logger
    */
   setErrorLogger (logger) {
     this.errorLogger = logger
@@ -73,7 +73,7 @@ class ApiRoutes {
   /**
    * Get all operation ID's from the specification.
    *
-   * @return {string[]}
+   * @returns {string[]}
    */
   get operationIds () {
     return Object.values(this.specification.paths)
@@ -191,18 +191,17 @@ class ApiRoutes {
    *
    * @param {object} data
    * @param {object} data.specification
-   * @param {string} data.secret
-   * @param {class} data.Backend
-   * @param {class} data.logger
-   * @param {class} data.errorLogger
-   * @param {function} data.callback
+   * @param {string=} data.secret
+   * @param {object} data.Backend
+   * @param {object=} data.logger
+   * @param {object=} data.errorLogger
+   * @param {Function} data.callback
    * @param {object} data.controllers
-   * @param {string} data.root
-   * @param {mixed} data.meta
-   * @param {boolean} data.requestValidation
-   * @param {boolean} data.responseValidation
-   *
-   * @return {ApiRoutes}
+   * @param {string=} data.root
+   * @param {any=} data.meta
+   * @param {boolean=} data.requestValidation
+   * @param {boolean=} data.responseValidation
+   * @returns {ApiRoutes}
    */
   static create ({
     specification,
