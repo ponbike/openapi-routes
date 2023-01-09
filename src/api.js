@@ -8,7 +8,7 @@ class ApiRoutes {
    * Set the specification.
    *
    * @param {object} OpenAPISpecification
-   * @param {object} Backend
+   * @param {Function} Backend
    * @param {Function} callback
    * @param {string=} root
    * @param {object=} meta
@@ -192,7 +192,7 @@ class ApiRoutes {
    * @param {object} data
    * @param {object} data.specification
    * @param {string=} data.secret
-   * @param {object} data.Backend
+   * @param {Function} data.Backend
    * @param {object=} data.logger
    * @param {object=} data.errorLogger
    * @param {Function} data.callback
