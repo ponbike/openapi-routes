@@ -71,7 +71,6 @@
     ]
   },
   "dependencies": {
-    "@hckrnews/objects": "^6.0.2",
     "ajv-formats": "^2.1.1"
   }
 }
