@@ -6,7 +6,6 @@ import addFormats from 'ajv-formats'
 class ApiRoutes {
   /**
    * Set the specification.
-   *
    * @param {object} OpenAPISpecification
    * @param {Function} Backend
    * @param {Function} callback
@@ -32,7 +31,6 @@ class ApiRoutes {
 
   /**
    * Get akl operations
-   *
    * @returns {Array}
    */
   get operations () {
@@ -41,7 +39,6 @@ class ApiRoutes {
 
   /**
    * Set the logger.
-   *
    * @param {object} logger
    */
   setLogger (logger) {
@@ -50,7 +47,6 @@ class ApiRoutes {
 
   /**
    * Set the error logger.
-   *
    * @param {object} logger
    */
   setErrorLogger (logger) {
@@ -59,7 +55,6 @@ class ApiRoutes {
 
   /**
    * Set the controllers.
-   *
    * @param {object} controllers
    */
   setControllers (controllers) {
@@ -72,7 +67,6 @@ class ApiRoutes {
 
   /**
    * Get all operation ID's from the specification.
-   *
    * @returns {string[]}
    */
   get operationIds () {
@@ -119,7 +113,6 @@ class ApiRoutes {
 
   /**
    * Set the authentication
-   *
    * @param {string} secret
    */
   authentication (secret) {
@@ -188,7 +181,6 @@ class ApiRoutes {
 
   /**
    * Create the API routes from a specification.
-   *
    * @param {object} data
    * @param {object} data.specification
    * @param {string=} data.secret
