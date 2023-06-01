@@ -173,7 +173,7 @@ describe('API route with security', () => {
     expect(actual instanceof Backend).toBeTruthy()
   })
 
-  it('Test if the API route add all routes', () => {
+  it('Test if the API route add all routes, test 2', () => {
     expect(actual.routes.map((route) => route.operationId)).toEqual([
       'unauthorizedHandler',
       'getStatus',
@@ -254,7 +254,7 @@ describe('API without not found controller', () => {
     responseValidation: true
   })
 
-  it('Test if the API route add all routes', () => {
+  it('Test if the API route add all routes, test 3', () => {
     expect(actual.routes.map((route) => route.operationId)).toEqual([
       'validationFail',
       'postResponseHandler',
