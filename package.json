@@ -1,6 +1,6 @@
 {
   "name": "@ponbike/openapi-routes",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "description": "OpenAPI routes",
   "files": [
     "src/api.js"
