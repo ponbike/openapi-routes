@@ -1,6 +1,7 @@
 import { expect, describe, it } from '@jest/globals'
+import Ajv from 'ajv'
 import { ApiRoutes } from '../api.js'
-import OpenAPISpecification from '../__fixtures__/api-doc.json' assert { type: 'json' }
+import OpenAPISpecification from '../__fixtures__/api-doc.json' with { type: 'json' }
 import Backend from '../__mocks__/backend.js'
 import callback from '../__mocks__/callback.js'
 import controllers from '../__mocks__/controller.js'
@@ -32,6 +33,14 @@ describe('API route without security', () => {
   })
   it('Test if the return value is a instance of the backend', () => {
     expect(actual instanceof Backend).toBeTruthy()
+  })
+
+  it('Test if customizeAjv registers ajv-formats on the Ajv instance', () => {
+    const ajv = new Ajv()
+    const customizedAjv = actual.customizeAjv(ajv)
+
+    expect(customizedAjv).toBe(ajv)
+    expect(customizedAjv.formats['date-time']).toBeDefined()
   })
 
   it('Test if the operation id\'s are generated', () => {
